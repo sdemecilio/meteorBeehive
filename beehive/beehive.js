@@ -1,42 +1,56 @@
-Hivename = new Mongo.Collection('hiveName');
+Observations = new Mongo.Collection('observations');
 
 if (Meteor.isClient)
 {
-	Meteor.subscribe("hiveName");
+	Meteor.subscribe("observations");
 	
 	Template.collectionForm.events({});
 	
 	Template.collectionForm.events
 	({
-		'submit form': function(event)
+		'submit form':function(event)
 		{
 			event.preventDefault();
-			var hive = $(event.target).find('textarea[name=hiveName]');
-			var hiveText = hive.val();
-			var observation = $(event.target).find('input[name=observationDate]');
-			var observationValue = observation.val();
-			var durationTime = $(event.target).find('input[name=duration]');
-			var duration = durationTime.val();
-			var mite = $(event.target).find('input[name=miteCount]');
-			var miteValue = mite.val();
+			var hivename = $(event.target).find('input[name=hiveName]');
+			var hiveNameText = hivename.val();
 			
-			Hivename.insert({hiveName: hiveText, observationDate: observationValue, duration: duration, miteCount: miteValue, sumbitedOn: Date.now()});
+			var observationDate = $(event.target).find('input[name=observationDate]');
+			var observation = observationDate.val();
+			
+			var duration = $(event.target).find('input[name=duration]');
+			var durationTime = duration.val();
+			
+			var miteCount = $(event.target).find('input[name=miteCount]');
+			var mites = miteCount.val();
+			
+			Observations.insert
+			({
+				hiveName: hiveNameText,
+				observationDate: observation,
+				duration: durationTime,
+				miteCount: mites,
+				createdOn: Date.now()
+			});
+			
+			
 		}
 	});
 	
 	Template.collectionForm.helpers
 	({
-		'Hivename':function()
+		// sorts by the date that information was submitted on
+		'observations':function()
 		{
-			return Hivename.find({}, {sort: {submittedOn: -1}}) || {};
+			return Observations.find({}, {sort: {createdOn: -1}}) || {};
 		}
 	})
 }
 
 if (Meteor.isServer)
 {
-	// code only runs on server side 
-	Meteor.publish("hiveName", function(){
-		return Hivename.find();
+	// this code only runs on the server side
+	Meteor.publish("observations", function()
+	{
+		return Observations.find();
 	})
 }

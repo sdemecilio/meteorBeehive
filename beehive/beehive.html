@@ -42,15 +42,12 @@
 		</form>
 		<hr>
 		
-		{{#each hiveName}}
-			<p><strong>{{hiveName}}</strong>
-				<p>
-					<ul>
-						<li>Observation date: {{observationDate}}</li>
-						<li>Duration: {{duration}}</li>
-						<li>Mite count: {{miteCount}}</li>
-					</ul>
-				</p>
+		{{#each observations}}
+			<p><strong>Hive name:</strong> {{hiveName}}<br>
+				<strong>Observation date:</strong> {{observationDate}}<br>
+				<strong>Duration:</strong> {{duration}}<br>
+				<strong>Mite count:</strong> {{miteCount}}<br>
+				<strong>Submitted on:</strong> {{createdOn}}
 			</p>
 		{{/each}}
 		
