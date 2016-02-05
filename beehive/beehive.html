@@ -1,14 +1,58 @@
 <head>
-  <title>beehive</title>
+  <title>Beehive Collection</title>
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
 
-  {{> hello}}
+	<h1>Welcome to the Beehive Collection form!</h1>
+	
+	<h3>Please completely fill out the following form.</h3>
+	
+	{{> collectionForm }}
+
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name = "collectionForm">
+	<div class = 'col-xs-3'>
+		<form>
+			<div class = "form-group">
+				<label for = "hiveName">Hive name: </label>
+				<input type = "text" name = "hiveName" />
+			</div>
+			
+			<div class = "form-group">
+				<label for = "observationDate">Observation date: </label>
+				<input type = "date" name = "observationDate" />
+			</div>
+			
+			<div class = "form-group">
+				<label for = "duration">Duration: </label>
+				<input type = "number" name = "duration" />
+			</div>
+			
+			<div class = "form-group">
+				<label for = "miteCount">Mite count: </label>
+				<input type = "number" name = "miteCount" />
+			</div>
+			
+			<p>
+				<button type = "submit">Submit Data</button>
+			</p>
+			
+		</form>
+		<hr>
+		
+		{{#each hiveName}}
+			<p><strong>{{hiveName}}</strong>
+				<p>
+					<ul>
+						<li>Observation date: {{observationDate}}</li>
+						<li>Duration: {{duration}}</li>
+						<li>Mite count: {{miteCount}}</li>
+					</ul>
+				</p>
+			</p>
+		{{/each}}
+		
+	</div>
 </template>
