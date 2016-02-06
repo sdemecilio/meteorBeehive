@@ -8,7 +8,7 @@ if (Meteor.isClient)
 	
 	Template.collectionForm.events
 	({
-		'submit form':function(event)
+		'submit form':function(event, template)
 		{
 			event.preventDefault();
 			var hivename = $(event.target).find('input[name=hiveName]');
@@ -23,14 +23,32 @@ if (Meteor.isClient)
 			var miteCount = $(event.target).find('input[name=miteCount]');
 			var mites = miteCount.val();
 			
-			Observations.insert
-			({
-				hiveName: hiveNameText,
-				observationDate: observation,
-				duration: durationTime,
-				miteCount: mites,
-				createdOn: Date.now()
-			});
+			// if statement for validation of complete form
+			if (hiveNameText.length > 0 && durationTime >= 0 && mites >= 0)
+			{
+				Observations.insert
+				({
+					hiveName: hiveNameText,
+					observationDate: observation,
+					duration: durationTime,
+					miteCount: mites,
+					createdOn: Date.now()
+				});
+				
+				// clears field after submission
+				hivename.val('');
+				observationDate.val('');
+				duration.val('');
+				miteCount.val('');
+			}
+			
+			// else in case reuired field is no completed
+			else
+			{
+				alert ("A required field is not completed.");
+				console.log(hivename);
+				hivename.classList.add("has-warning");
+			}
 			
 			
 		}
