@@ -2,19 +2,22 @@
   <title>Beehive Collection</title>
 </head>
 
-<body>
-
-	<h1>Welcome to the Beehive Collection form!</h1>
+<template name = "layout">
+	<body>
 	
-	<h3>Please completely fill out the following form.</h3>
-	
-	{{> collectionForm }}
+		{{> yield }}
 
-</body>
+	</body>
+</template>
 
-<template name = "collectionForm">
+<template name = "home">
 	<div class = 'col-xs-3'>
 		<form>
+			
+			<h1>Welcome to the Beehive Collection form!</h1>
+			
+			<h3>Please completely fill out the following form.</h3>
+			
 			<div class = "form-group">
 				<label for = "hiveName">Hive name: </label>
 				<input type = "text" name = "hiveName" />
@@ -41,7 +44,15 @@
 			
 		</form>
 		<hr>
-		
+
+	</div>
+</template>
+
+<template name = "admin">
+	
+	<p><h3><center>Admin Page</center></h3></p>
+	<hr>
+
 		{{#each observations}}
 			<p><strong>Hive name:</strong> {{hiveName}}<br>
 				<strong>Observation date:</strong> {{observationDate}}<br>
@@ -50,6 +61,21 @@
 				<strong>Submitted on:</strong> {{createdOn}}
 			</p>
 		{{/each}}
-		
+
+</template>
+
+<template name = "hive">
+
+	<div class = "row">
+		<h3><center>Data:</center></h3>
+		<hr>
+		{{#each singleData}}
+		<p>
+			<strong>Hive name:</strong> {{hiveName}}<br>
+			<strong>Observation date</strong> {{observatioDate}}<br>
+			<strong>Mite counter</strong> {{miteCount}}<br>
+			<strong>Mite count:</strong> {{miteCount}}
+		</p>
+		{{/each}}
 	</div>
 </template>
